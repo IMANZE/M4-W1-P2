@@ -55,9 +55,38 @@ function searchDeezerMetallica() {
 
 }
 
+function searchDeezerQueen() {
+    fetch("https://striveschool-api.herokuapp.com/api/deezer/search?q=metallica")
+    .then((response) => response.json())
+    .then((dataQueen) => {
+        console.log(dataQueen);
+        const queen = document.querySelector("#queenSection")
+        for (let index = 0; index < dataQueen.data.length; index++) {
+            const queenList = dataQueen.data[index];
+            const queenDiv = document.createElement("div")
+            queenDiv.classList.add("col")
+            queenDiv.innerHTML=`<div class="card" style="height: 100%; background-color:#10171F">
+            <img src="${queenList.album.cover}" class="card-img-top img-fluid w-100" alt="...">
+            <div class="card-body" style="height: 100%">
+            <h5 class="card-title">${queenList.title}</h5>
+            <p class="card-text">${queenList.title_short}</p>
+            </div>
+            </div>`
+            queen.appendChild(queenDiv)
+        }
+        
+    })
+    .catch((err) => {
+        console.log("rejeceted"); 
+        console.log(err);
+    });
+
+}
+
 
 window.onload = function() {
  searchDeezerEminem();
  searchDeezerMetallica()
+ searchDeezerQueen()
  
 };
