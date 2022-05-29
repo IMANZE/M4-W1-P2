@@ -1,4 +1,5 @@
-
+let album =[]
+console.log(album);
 function searchDeezerEminem() {
   fetch("https://striveschool-api.herokuapp.com/api/deezer/search?q=eminem" ) 
    .then((response) => response.json())
@@ -16,6 +17,19 @@ function searchDeezerEminem() {
             <p class="card-text">${eminemList.title_short}</p>
             </div>
             </div>`
+            for (let index = 0; index < dataEminem.data.length; index++) {
+              
+                 if (!album.includes(dataEminem.data[index].album.id)) {
+                    album.push(dataEminem.data[index].album) 
+                 }
+                  
+              
+            }
+            // for (let i = 0; i < dataEminem.data.length; i++) {
+            //     if(!album.map(a => a.id).includes(dataEminem.data[i].album.id)) {
+            //       album.push(dataEminem.data[i].album)
+            //     }
+            //   }
             eminem.appendChild(eminemDiv)
         }
         
@@ -44,6 +58,13 @@ function searchDeezerMetallica() {
             <p class="card-text">${metallicaList.title_short}</p>
             </div>
             </div>`
+            for (let index = 0; index < dataMetallica.data.length; index++) {
+              
+                if (!album.includes(dataMetallica.data[index].album.id)) {
+                   album.push(dataMetallica.data[index].album) 
+                }
+                 
+           }
             metallica.appendChild(metallicaDiv)
         }
         
@@ -56,7 +77,7 @@ function searchDeezerMetallica() {
 }
 
 function searchDeezerQueen() {
-    fetch("https://striveschool-api.herokuapp.com/api/deezer/search?q=metallica")
+    fetch("https://striveschool-api.herokuapp.com/api/deezer/search?q=queen")
     .then((response) => response.json())
     .then((dataQueen) => {
         console.log(dataQueen);
@@ -72,6 +93,13 @@ function searchDeezerQueen() {
             <p class="card-text">${queenList.title_short}</p>
             </div>
             </div>`
+            for (let index = 0; index < dataQueen.data.length; index++) {
+              
+                if (!album.includes(dataQueen.data[index].album.id)) {
+                   album.push(dataQueen.data[index].album) 
+                }
+                 
+           }
             queen.appendChild(queenDiv)
         }
         
@@ -83,10 +111,26 @@ function searchDeezerQueen() {
 
 }
 
+function albumList() {
+ const albumButton = document.querySelector("#btn-albums-title")  
+ albumButton.addEventListener('click' , () => {
+    const modalAlbum = document.querySelector("#modalAlbumList")
+    for (let index = 0; index < album.length; index++) {
+        const albumIndex = album[index];
+       const newElement = document.createElement("div") 
+       console.log(albumIndex);
+       newElement.innerHTML= `<ul class="list-group list-group-flush">
+       <li class="list-group-item">${albumIndex.title}</li> 
+       </ul>`
+       modalAlbum.appendChild(newElement)
+    }
+ }) 
+}
 
 window.onload = function() {
  searchDeezerEminem();
  searchDeezerMetallica()
  searchDeezerQueen()
+ albumList()
  
 };
