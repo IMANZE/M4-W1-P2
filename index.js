@@ -126,11 +126,18 @@ function albumList() {
     }
  }) 
 }
+function counter() {
+    const cardButton = document.querySelector("#btn-card-counter")
+    cardButton.addEventListener("click", () =>{
+        console.log(document.querySelectorAll(".card").length);
+    })
+    
+}
 
 window.onload = function() {
  searchDeezerEminem();
  searchDeezerMetallica()
  searchDeezerQueen()
  albumList()
- 
+ counter() 
 };
